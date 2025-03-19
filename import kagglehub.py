@@ -1,5 +1,3 @@
-"""IMPORTACION DE LIBRERIAS"""
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,7 +11,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-df = pd.read_csv('medical_conditions_dataset.csv')
+
+df = pd.read_csv('Diabetes Missing Data (1).csv')
 print(df.head())
 
 """CHECKING QUANTITY OF MISSING VALUES"""
@@ -25,20 +24,8 @@ print(missing_data)
 missing_entries = df.isnull().any(axis=1).sum()
 print(total_entries-missing_entries)
 
-"""CHANGING CATEGORICAL VALUES TO BINARY VALUES"""
-df['gender'] = df['gender'].astype('category').cat.codes
-df['smoking_status'] = df['smoking_status'].astype('category').cat.codes
-df['condition'] = df['condition'].astype('category').cat.codes
-
-"""DELETE FULL_NAME AND ID"""
-df = df.drop(columns=['full_name', 'id'])
-
-"""
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-#OBTAIN TARGET AND VALUES
-"""
-X = df.drop(columns=['condition'])
-y = df['condition']
+X = df.drop(columns=['Class'])
+y = df['Class']
 
 #PLOT OF MISSING VALUES
 plt.figure(figsize=(10, 6))
@@ -67,7 +54,6 @@ plt.xticks(rotation=45)
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-
 
 
 def train_and_evaluate_no_predata_proccess_changing_max_depth(max_depth, X_train, X_test, y_train, y_test):
